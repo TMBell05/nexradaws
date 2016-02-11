@@ -20,7 +20,8 @@ def get_datetime_from_key(key, radar):
         return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S_'+str(end.group())+'.gz')
     except ValueError:
         return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S.gz')
-
+    except AttributeError:
+        return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S.gz')
 
 def get_objects(radar, date):
     s3 = boto3.resource('s3')
