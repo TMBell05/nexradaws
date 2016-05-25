@@ -7,8 +7,8 @@ with codecs_open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 
-setup(name='awswdssii',
-      version='0.0.1',
+setup(name='nexradaws',
+      version='0.0.2',
       description=u"CLI to retrieve and process NEXRAD data from AWS",
       long_description=long_description,
       classifiers=[],

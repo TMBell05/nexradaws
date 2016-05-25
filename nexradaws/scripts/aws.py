@@ -17,11 +17,12 @@ def get_datetime_from_key(key, radar):
         return None
 
     try:
-        return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S_'+str(end.group())+'.gz')
+        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S_' + str(end.group()) + '.gz')
     except ValueError:
-        return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S.gz')
+        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S.gz')
     except AttributeError:
-        return datetime.strptime(tmp, radar+'%Y%m%d_%H%M%S.gz')
+        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S.gz')
+
 
 def get_objects(radar, date):
     s3 = boto3.resource('s3')
@@ -30,7 +31,7 @@ def get_objects(radar, date):
 
     # Create prefix to filter keys in bucket
     prefix = '%s/%s' % (date.strftime("%Y/%m/%d"), radar)
-    
+
     objs = []
     for obj in bucket.objects.filter(Prefix=prefix):
         objs.append(obj)
@@ -67,7 +68,7 @@ def download_radar_objects(s3_objects, work_dir, radar, date):
 
 def filter_objects_by_date(s3_objects, radar, start_date, end_date):
     good_objs = []
-    for obj in s3_objects: 
+    for obj in s3_objects:
         tmp_date = get_datetime_from_key(obj.key, radar)
 
         if tmp_date is not None:
@@ -78,7 +79,6 @@ def filter_objects_by_date(s3_objects, radar, start_date, end_date):
 
 
 def get_nexrad_data(radar, start_date, end_date, work_dir):
-
     # Turn date strings into datetime objects
     start_date = datetime.strptime(start_date, "%Y%m%d-%H%M%S")
     end_date = datetime.strptime(end_date, "%Y%m%d-%H%M%S")

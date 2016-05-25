@@ -2,7 +2,7 @@ import os
 
 import click
 
-import awsnexrad
+import nexradaws
 
 
 @click.command(help="Downloads specified radar data\n")
@@ -43,7 +43,7 @@ def get_nexrad(radars, start_date, end_date, work_dir, netcdf=False):
     radars = radars.split(',')
 
     for radar in radars:
-        data_dirs = awsnexrad.get_nexrad_data(radar, start_date, end_date, work_dir)
+        data_dirs = nexradaws.scripts.aws.get_nexrad_data(radar, start_date, end_date, work_dir)
 
         # Convert to netcdf if desired
         if netcdf:
