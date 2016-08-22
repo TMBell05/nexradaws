@@ -10,18 +10,27 @@ import nexradaws
 
 def get_datetime_from_key(key, radar):
     tmp = key.split('/')[-1]
-    end = re.search("V\d\d", tmp)
 
     # TODO - Temporary fix. Need to be able to download tars as well?
     if 'NXL2' in tmp:
         return None
 
-    try:
-        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S_' + str(end.group()) + '.gz')
-    except ValueError:
-        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S.gz')
-    except AttributeError:
-        return datetime.strptime(tmp, radar + '%Y%m%d_%H%M%S.gz')
+    # Get the regex object
+    date_re = re.compile("{radar}(\d\d\d\d)(\d\d)(\d\d)_(\d\d)(\d\d)(\d\d).*.".format(radar=radar))
+    # Search the object
+    date_info = date_re.search(tmp)
+
+    if date_info is not None:
+        # Create datetime object
+        date = datetime(year=int(date_info.group(1)),
+                        month=int(date_info.group(2)),
+                        day=int(date_info.group(3)),
+                        hour=int(date_info.group(4)),
+                        minute=int(date_info.group(5)),
+                        second=int(date_info.group(6)))
+        return date
+    else:
+        raise Exception("Could not determine date info from file {}".format(tmp))
 
 
 def get_objects(radar, date):
