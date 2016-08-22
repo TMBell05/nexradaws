@@ -1,5 +1,5 @@
-# WDSS-II processing utilizing Amazon AWS S3
-This CLI provides a way to interact with and process archived NEXRAD data provided by AWS via S3. See here for more info: https://aws.amazon.com/noaa-big-data/nexrad/
+# CLI to download data from AWS S3
+This CLI provides a way to interact with and (in the future) process archived NEXRAD data provided by AWS via S3. See here for more info: https://aws.amazon.com/noaa-big-data/nexrad/
 
 ### Requirements
 - boto3
