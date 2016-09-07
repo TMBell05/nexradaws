@@ -23,7 +23,7 @@ import nexradaws
     default=False,
     is_flag=True,
     flag_value=True,
-    help="Use if data needs to be converted to cf-netcdf"
+    help="(NOT IMPLEMENTED) Use if data needs to be converted to cf-netcdf"
     )
 def get_nexrad(radars, start_date, end_date, work_dir, netcdf=False):
     

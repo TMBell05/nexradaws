@@ -50,6 +50,8 @@ def get_objects(radar, date):
 
 def download_radar_objects(s3_objects, work_dir, radar, date):
     dest_dirs = []
+
+    # Show a progress bar
     with click.progressbar(s3_objects, label='Downloading files for %s %s' % (radar, date.strftime('%Y-%m-%d')),
                            fill_char=click.style('#', fg='green')) as s3_objects:
         for obj in s3_objects:
@@ -70,8 +72,9 @@ def download_radar_objects(s3_objects, work_dir, radar, date):
                 # Create the destination file
                 filename = os.path.join(dest_dir, filename)
 
-                # Download the file
-                _download_from_obj_summary(obj, filename)
+                if not os.path.isfile(filename):
+                    # Download the file if it doesn't already exist
+                    _download_from_obj_summary(obj, filename)
     return dest_dirs
 
 
