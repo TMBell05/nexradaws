@@ -34,7 +34,7 @@ def get_datetime_from_key(key, radar):
 
 
 def get_objects(radar, date):
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource(str('s3'))
 
     bucket = s3.Bucket(nexradaws.NEXRAD_BUCKET)
 

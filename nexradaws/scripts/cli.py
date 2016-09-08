@@ -25,7 +25,19 @@ import nexradaws
     flag_value=True,
     help="(NOT IMPLEMENTED) Use if data needs to be converted to cf-netcdf"
     )
-def get_nexrad(radars, start_date, end_date, work_dir, netcdf=False):
+@click.option(
+    '--plot',
+    default=False,
+    is_flag=True,
+    flag_value=True,
+    help="Flag to plot desired figures"
+)
+@click.option(
+    '--prods',
+    help="Comma seperated list of products to plot"
+)
+
+def get_nexrad(radars, start_date, end_date, work_dir, netcdf, plot, prods):
     
     if radars is None:
         raise click.ClickException("Please specify some radars")
@@ -40,7 +52,10 @@ def get_nexrad(radars, start_date, end_date, work_dir, netcdf=False):
         work_dir = os.getcwd()
 
     # Split up radars into list
-    radars = radars.split(',')
+    if radars is not None:
+        radars = radars.split(',')
+    if prods is not None:
+        prods = prods.split(',')
 
     for radar in radars:
         data_dirs = nexradaws.scripts.aws.get_nexrad_data(radar, start_date, end_date, work_dir)
@@ -48,4 +63,9 @@ def get_nexrad(radars, start_date, end_date, work_dir, netcdf=False):
         # Convert to netcdf if desired
         if netcdf:
             pass  # TODO - Implement netcdf conversion
+
+        if plot:
+            nexradaws.scripts.plot.make_plots(data_dirs, work_dir, radar, prods, elevs=None)
+
+
 
