@@ -19,7 +19,7 @@ def make_plots(data_dirs, work_dir, site, products=None, elevs=None):
     :return:
     """
     files = []
-    print data_dirs
+    print(data_dirs)
     for dir in data_dirs:
         files += glob(os.path.join(dir, '*'))
 
@@ -63,7 +63,7 @@ def make_plots(data_dirs, work_dir, site, products=None, elevs=None):
                         plt.close()
                         del fig
             except Exception:
-                print "Unknown error occured for file " + f
+                print("Unknown error occured for file " + f)
 
 
 def _find_nearest(a, a0):

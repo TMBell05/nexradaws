@@ -1,5 +1,3 @@
-import aws
-import cli
-import plot
+from . import aws, cli, plot
 
 NEXRAD_BUCKET = 'noaa-nexrad-level2'

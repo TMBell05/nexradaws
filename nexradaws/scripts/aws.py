@@ -111,7 +111,7 @@ def get_nexrad_data(radar, start_date, end_date, work_dir):
             dest_dir = download_radar_objects(objects, work_dir, radar, date)
             out_dirs += dest_dir
         else:
-            print "No files found for %s during hour %s" % (radar, date)
+            print("No files found for {0} during hour {1}".format(radar, date))
         date += td
 
     return out_dirs
